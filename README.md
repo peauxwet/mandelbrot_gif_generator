@@ -1,4 +1,4 @@
-# mandelbrot_picture_generator
-This is not my code. I am using this to study Python decorators and program design.
+# mandelbrot_gif_generator
+This program takes a number on the complex plane and creates a fractal zoom around that point using the mandelbrot set.
 
-It creates a colored representation of the mandelbrot set. So if you're into that, go ahead and give it a try.
+As of right now this program is pretty slow. I am studying asychronous programming and will try to update it at a later date to be more efficient.
