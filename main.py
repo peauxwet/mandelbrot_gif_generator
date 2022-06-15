@@ -85,12 +85,21 @@ def denormalize(palette):
     ]
 
 
-mandelbrot_set = MandelbrotSet(max_iterations=256, escape_radius= 1000)
-image = Image.new(mode="RGB", size=(1024,1024))
-viewport = Viewport(image, center=-0.7435 + 0.1314j, width=0.002)
-colormap = matplotlib.cm.get_cmap("twilight").colors
-palette = denormalize(colormap)
-paint(mandelbrot_set, viewport, palette, smooth=True)
+if __name__ == "__main__":
+    mandelbrot_set = MandelbrotSet(max_iterations=256, escape_radius= 1000)
+    image = Image.new(mode="RGB", size=(1024,1024))
+    colormap = matplotlib.cm.get_cmap("inferno").colors
+    palette = denormalize(colormap)
 
-enhancer = ImageEnhance.Brightness(image)
-enhancer.enhance(1.25).show()
+
+    images = []
+    viewport_width = 4
+
+    for i in range(140):
+        viewport = Viewport(image, center=-0.7435 + 0.1314j, width=viewport_width) 
+        paint(mandelbrot_set, viewport, palette, smooth=True) 
+        enhancer = ImageEnhance.Brightness(image)
+        images.append(enhancer.enhance(1.25))
+        viewport_width = viewport_width * 0.95
+
+    images[0].save('./mandelbrotZoom.gif', save_all = True, append_images = images[1:], optimize = False, duration = 100, loop = 0)
